@@ -1,17 +1,24 @@
-import React from 'react'
+import React from "react";
 
 export const CharModal = (props) => {
-  const { displayModal, modalPosition } = props;
+  const { displayModal, modalPosition, characters, checkIfCharacter } = props;
+
   return displayModal ? (
     <div
-    className="modal-container"
-    style={{position: 'fixed', top: modalPosition.y, left: modalPosition.x, backgroundColor: 'red' }}
-  >
-    <div className="modal-content">
-      <p>1</p>
-      <p>2</p>
-      <p>3</p>
+      style={{
+        position: "fixed",
+        top: modalPosition.y,
+        left: modalPosition.x,
+        backgroundColor: "black",
+        color: 'white',
+        padding: "10px"
+      }}
+    >
+      <div>
+        {characters.map((char) => {
+          return <button onClick={() => checkIfCharacter(char)}>{char}</button>;
+        })}
+      </div>
     </div>
-  </div>
-) : null;  
-}
+  ) : null;
+};

@@ -12,6 +12,7 @@ function App() {
 
   const nonMagImg = (
     <img
+      id="main-photo"
       width={"70%"}
       src={mainImg}
       alt="smash characters"
@@ -20,6 +21,7 @@ function App() {
   );
   const magImg = (
     <Magnifier
+      id="main-photo"
       width={"70%"}
       mgShowOverflow={false}
       mgHeight={200}
@@ -31,19 +33,20 @@ function App() {
       style={{ cursor: "default" }}
     />
   );
-  function openModal() {
+
+  function toggleModal(e) {
     setDisplayModal(!displayModal);
   }
-  function handleClick(e) {
-    const { left, top, width, height } = e.target.getBoundingClientRect();
-    const coordX = Math.round(((e.clientX - left) / width) * 100);
-    const coordY = Math.round(((e.clientY - top) / height) * 100);
-    setModalPosition({ x: e.clientX, y: e.clientY });
-    openModal();
+
+  function checkIfCharacter(character) {
+    const { left, top, width, height } = document
+      .getElementById("main-photo")
+      .getBoundingClientRect();
+    const coordX = Math.round(((modalPosition.x - left) / width) * 100);
+    const coordY = Math.round(((modalPosition.y - top) / height) * 100);
     characterLocation.forEach((char) => {
       const absX = Math.abs(char.X - coordX);
       const absY = Math.abs(char.Y - coordY);
-
       if (absX <= 5 && absY <= 5) {
         setCharacters((prevChars) =>
           prevChars.map((item) =>
@@ -53,6 +56,12 @@ function App() {
       }
     });
   }
+
+  function handleClick(e) {
+    setModalPosition({ x: e.clientX, y: e.clientY });
+    toggleModal(e);
+  }
+
   function getRandomChars() {
     const result = [];
     const characters = [...characterLocation];
@@ -77,7 +86,12 @@ function App() {
           );
         })}
       </ul>
-      <CharModal displayModal={displayModal} modalPosition={modalPosition} />
+      <CharModal
+        displayModal={displayModal}
+        modalPosition={modalPosition}
+        characters={characters}
+        checkIfCharacter={checkIfCharacter}
+      />
     </div>
   );
 }
