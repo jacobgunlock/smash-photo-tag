@@ -4,6 +4,7 @@ import Magnifier from "react-magnifier";
 import { useEffect, useState } from "react";
 import { CharModal } from "./components/CharModal";
 import { Message } from "./components/Message";
+import "./main.css";
 
 function App() {
   const [isMagnified, setIsMagnified] = useState(true);
@@ -58,7 +59,7 @@ function App() {
           if (i.name === character) {
             return {
               ...i,
-              name: `You found ${character}`,
+              name: `✔ You found ${character}`,
               found: true,
             };
           }
@@ -113,23 +114,35 @@ function App() {
         });
       }, 2000);
     }
-    if (displayModal && message.active) setMessage({ ...message, active: false });
+    if (displayModal && message.active)
+      setMessage({ ...message, active: false });
     return () => clearTimeout(timer);
   }, [message, displayModal]);
 
   return (
     <div className="App">
-      {isMagnified ? magImg : nonMagImg}
-      <button onClick={() => setIsMagnified(!isMagnified)}>toggle mag</button>
-      <ul>
-        {characters.map((item) => {
-          return (
-            <li key={item.name} style={item.found ? { color: "green" } : null}>
-              {item.name}
-            </li>
-          );
-        })}
-      </ul>
+      <div className="header">
+        <h1>Smash Bros Photo Tag</h1>
+        <div className="info">
+          <button onClick={() => setIsMagnified(!isMagnified)}></button>
+          <div>
+            <p>Search for:</p>
+            <ul>
+              {characters.map((item) => {
+                return (
+                  <li
+                    key={item.name}
+                    style={item.found ? { color: "green" } : null}
+                  >
+                    {item.name}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div className="main">{isMagnified ? magImg : nonMagImg}</div>
       <CharModal
         displayModal={displayModal}
         modalPosition={modalPosition}
