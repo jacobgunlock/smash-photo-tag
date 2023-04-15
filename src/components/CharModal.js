@@ -16,7 +16,8 @@ export const CharModal = (props) => {
     >
       <div>
         {characters.map((char) => {
-          return <button onClick={() => checkIfCharacter(char)}>{char}</button>;
+          if (!char.found) return <button key={char.name} onClick={() => checkIfCharacter(char.name)}>{char.name}</button>
+          return null;
         })}
       </div>
     </div>
