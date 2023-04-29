@@ -1,12 +1,19 @@
-import mainImg from "./assets/smash-photo-tag.jpg";
 import characterLocation from "./characterLocation";
-import Magnifier from "react-magnifier";
 import { useEffect, useState } from "react";
 import { CharModal } from "./components/CharModal";
 import { Message } from "./components/Message";
+import { Header } from "./components/Header";
+import WinScreen from "./components/WinScreen";
+import { NonMagImg } from "./components/NonMagImg";
+import { MagImg } from "./components/MagImg";
 import "./main.css";
 
 function App() {
+  const [isGameover, setIsGameover] = useState(false);
+  const [timer, setTimer] = useState({
+    seconds: 0,
+    active: true,
+  });
   const [isMagnified, setIsMagnified] = useState(true);
   const [displayModal, setDisplayModal] = useState(false);
   const [modalPosition, setModalPosition] = useState("");
@@ -15,31 +22,7 @@ function App() {
     text: "Not quite!",
     active: false,
   });
-
-  const nonMagImg = (
-    <img
-      id="main-photo"
-      width={"70%"}
-      src={mainImg}
-      alt="smash characters"
-      onClick={(e) => handleClick(e)}
-    />
-  );
-  const magImg = (
-    <Magnifier
-      id="main-photo"
-      width={"70%"}
-      mgShowOverflow={false}
-      mgHeight={200}
-      mgWidth={200}
-      zoomFactor={1}
-      src={mainImg}
-      alt="smash characters"
-      onClick={(e) => handleClick(e)}
-      style={{ cursor: "default" }}
-    />
-  );
-
+  
   function toggleModal() {
     setDisplayModal(!displayModal);
   }
@@ -104,6 +87,15 @@ function App() {
     return result;
   }
 
+  function resetGame() {
+    setCharacters(getRandomChars());
+    setIsGameover(false);
+    setTimer({
+      active: true,
+      seconds: 0,
+    });
+  }
+
   useEffect(() => {
     let timer;
     if (message.active) {
@@ -112,37 +104,55 @@ function App() {
           text: "Not quite!",
           active: false,
         });
-      }, 2000);
+      }, 1000);
     }
     if (displayModal && message.active)
       setMessage({ ...message, active: false });
     return () => clearTimeout(timer);
   }, [message, displayModal]);
 
+  useEffect(() => {
+    if (characters.every((char) => char.found === true)) {
+      setIsGameover(true);
+      setTimer((prev) => ({
+        ...prev,
+        active: false,
+      }));
+    }
+  }, [characters]);
+
+  useEffect(() => {
+    let interval;
+    if (timer.active) {
+      interval = setInterval(() => {
+        setTimer((prev) => ({
+          ...prev,
+          seconds: prev.seconds + 1,
+        }));
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [timer]);
+
   return (
     <div className="App">
-      <div className="header">
-        <h1>Smash Bros Photo Tag</h1>
-        <div className="info">
-          <button onClick={() => setIsMagnified(!isMagnified)}></button>
-          <div>
-            <p>Search for:</p>
-            <ul>
-              {characters.map((item) => {
-                return (
-                  <li
-                    key={item.name}
-                    style={item.found ? { color: "green" } : null}
-                  >
-                    {item.name}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+      <Header
+        isMagnified={isMagnified}
+        setIsMagnified={setIsMagnified}
+        characters={characters}
+        timer={timer}
+      />
+      {isGameover ? (
+        <WinScreen resetGame={resetGame} timer={timer} />
+      ) : (
+        <div className="main">
+          {isMagnified ? (
+            <MagImg handleClick={handleClick} />
+          ) : (
+            <NonMagImg handleClick={handleClick} />
+          )}
         </div>
-      </div>
-      <div className="main">{isMagnified ? magImg : nonMagImg}</div>
+      )}
       <CharModal
         displayModal={displayModal}
         modalPosition={modalPosition}

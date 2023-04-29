@@ -8,7 +8,7 @@ export const Message = (props) => {
         style={{
           position: "fixed",
           top: modalPosition.y,
-          left: modalPosition.x,
+          left: window.innerWidth / 2 > modalPosition.x ? modalPosition.x : modalPosition.x - 200,
           backgroundColor: "black",
           color: "white",
           padding: "10px",
