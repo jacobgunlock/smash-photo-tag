@@ -10,7 +10,7 @@ export const Header = (props) => {
   return (
     <div className="header">
       <h2>Smash Bros Photo Tag</h2>
-      <p>{timer.seconds}s</p>
+      <p>{(timer.ms / 10).toFixed(1)}s</p>
       <div>
         <h3>Search for:</h3>
         <ul>

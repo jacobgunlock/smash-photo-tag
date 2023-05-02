@@ -11,7 +11,7 @@ import "./main.css";
 function App() {
   const [isGameover, setIsGameover] = useState(false);
   const [timer, setTimer] = useState({
-    seconds: 0,
+    ms: 0,
     active: true,
   });
   const [isMagnified, setIsMagnified] = useState(true);
@@ -22,7 +22,7 @@ function App() {
     text: "Not quite!",
     active: false,
   });
-  
+
   function toggleModal() {
     setDisplayModal(!displayModal);
   }
@@ -92,10 +92,11 @@ function App() {
     setIsGameover(false);
     setTimer({
       active: true,
-      seconds: 0,
+      ms: 0,
     });
   }
 
+  
   useEffect(() => {
     let timer;
     if (message.active) {
@@ -127,13 +128,13 @@ function App() {
       interval = setInterval(() => {
         setTimer((prev) => ({
           ...prev,
-          seconds: prev.seconds + 1,
+          ms: prev.ms + 1,
         }));
-      }, 1000);
+      }, 100);
     }
     return () => clearInterval(interval);
   }, [timer]);
-
+  
   return (
     <div className="App">
       <Header
