@@ -9,17 +9,18 @@ export const CharModal = (props) => {
   }
   return displayModal ? (
     <div
+      className="modal"
       style={{
         position: "fixed",
         top: modalPosition.y,
         left: window.innerWidth / 2 > modalPosition.x ? modalPosition.x : modalPosition.x - 200,
-        backgroundColor: "rgba(0,0,0,0.5)",
+        backgroundColor: "rgba(0,0,0,0.8)",
         border: 'solid black',
         color: "white",
         padding: "10px",
         display: "flex",
         flexDirection: "column",
-        width: '200px'
+        width: '200px',
       }}
     >
       {characters.map((char) => {

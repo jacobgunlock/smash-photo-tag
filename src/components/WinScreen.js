@@ -39,7 +39,6 @@ const WinScreen = (props) => {
         `You got a new highscore! \n Please enter your name. \n [10 char limit]`
       );
     }
-    console.log(name);
     await setDoc(doc(leaderboard), {
       name: name,
       time: props.timer.ms.toFixed(1) / 10,
@@ -74,7 +73,7 @@ const WinScreen = (props) => {
   return (
     <div style={styling}>
       <h2>Game Over!</h2>
-      <div style={{}}>
+      <div style={{ textAlign: "center" }}>
         <p>Your Time Was {props.timer.ms.toFixed(1) / 10}s</p>
         <button onClick={props.resetGame}>Play Again?</button>
       </div>
@@ -97,7 +96,12 @@ const WinScreen = (props) => {
           Leaderboard
         </h2>
         <table
-          style={{ borderSpacing: "0", border: "solid black", width: "250px" }}
+          style={{
+            borderSpacing: "0",
+            border: "solid black",
+            width: "250px",
+            textAlign: "center",
+          }}
         >
           <tbody>
             {leaderboard.map((entry) => {
@@ -107,8 +111,9 @@ const WinScreen = (props) => {
                     style={{
                       width: "1fr",
                       border: "solid black",
-                      fontSize: "24px",
+                      fontSize: "18px",
                       backgroundColor: "grey",
+                      padding: '20px 5px'
                     }}
                   >
                     {entry.name}
@@ -117,8 +122,9 @@ const WinScreen = (props) => {
                     style={{
                       width: "1fr",
                       border: "solid black",
-                      fontSize: "24px",
+                      fontSize: "18px",
                       backgroundColor: "grey",
+                      padding: '20px 5px'
                     }}
                   >
                     {entry.time}s

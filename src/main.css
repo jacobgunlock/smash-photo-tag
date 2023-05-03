@@ -1,13 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 body {
   margin: 0;
   padding: 0px;
-  text-align: center;
   background-image: url('./assets/smash-bg.png');
   background-size: cover;
+  font-family: 'Press Start 2P', cursive;
 }
 
-h3 {
-  margin: 0;
+h4 {
+  margin: 10px 5px;
   padding: 0;
   text-align: center;
 }
@@ -15,6 +17,10 @@ ul {
   margin: 0;
   padding: 0;
   list-style-type: none;
+}
+li {
+  font-size: 12px;
+  margin: 5px 0;
 }
 .header {
   display: flex;
@@ -27,8 +33,22 @@ ul {
   background-color: rgba(255, 255, 255, 0.7);
   z-index: 1;
   border-bottom: solid black;
-  padding: 0 30px;
+  padding: 10px 30px;
   height: 100px;
+}
+
+.header>* {
+  width: min-content;
+}
+
+.search {
+  text-align: center;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.time {
+  text-align: end;
 }
 
 .info {
@@ -39,18 +59,25 @@ ul {
   margin: 10px;
 }
 
+.main, .main>.magnifier {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .main>img, .main>.magnifier>img {
   width: 100%;
   max-width: 1000px;
-  margin-top: 100px;
+  margin-top: 120px;
   z-index: 0;
   box-shadow: 2px 2px 5px;
+  justify-content: center;
 }
 
 .mag-glass {
   border: none;
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   background-color: transparent;
   background-size: auto;
   cursor: pointer;
@@ -65,4 +92,7 @@ ul {
   height: 55px;
 }
 
-
+button {
+  font-family: 'Press Start 2P', cursive;
+  padding: 5px;
+}
