@@ -42,7 +42,7 @@ function App() {
           if (i.name === character) {
             return {
               ...i,
-              name: `✔ You found ${character}`,
+              name: `✔ ${character}`,
               found: true,
             };
           }
@@ -67,7 +67,14 @@ function App() {
   }
 
   function handleClick(e) {
-    setModalPosition({ x: e.clientX, y: e.clientY });
+    console.log(e);
+    e.type === "click"
+      ? setModalPosition({ x: e.clientX, y: e.clientY })
+      : setModalPosition({
+          x: e.changedTouches[0].clientX,
+          y: e.changedTouches[0].clientY,
+        });
+
     toggleModal(e);
   }
 
@@ -96,7 +103,6 @@ function App() {
     });
   }
 
-  
   useEffect(() => {
     let timer;
     if (message.active) {
@@ -134,7 +140,7 @@ function App() {
     }
     return () => clearInterval(interval);
   }, [timer]);
-  
+
   return (
     <div className="App">
       <Header

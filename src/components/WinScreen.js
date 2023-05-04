@@ -17,8 +17,9 @@ const WinScreen = (props) => {
     minHeight: "800px",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "end",
     alignItems: "center",
+    margin: '200px 0'
   };
   const [leaderboard, setLeaderboard] = useState([]);
   const [initialized, setInitialized] = useState(false);

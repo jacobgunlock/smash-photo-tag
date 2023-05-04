@@ -15,6 +15,7 @@ export const MagImg = (props) => {
       src={mainImg}
       alt="smash characters"
       onClick={(e) => props.handleClick(e)}
+      onTouchEnd={(e) => props.handleClick(e)}
       style={{ cursor: "default", maxWidth: "1000px" }}
     />
   )
