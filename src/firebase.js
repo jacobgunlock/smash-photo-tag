@@ -5,6 +5,10 @@ import { getFirestore} from 'firebase/firestore'
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+
+// ************
+// API KEY MEANT TO BE HARDCODED; AS PART OF 'TOP' LESSON INSTRUCTIONS 
+// ************
 const firebaseConfig = {
   apiKey: "AIzaSyCCJpCRmptZ6aR1mGaNrVkQbtSAqPYjHVM",
   authDomain: "smash-photo-tag.firebaseapp.com",
